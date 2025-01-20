@@ -32,5 +32,6 @@ else if(val.ToLower() == "höger"){
     System.Console.WriteLine($"Du väljer att gå {val}");
     return;
 }
+
 }
 }
