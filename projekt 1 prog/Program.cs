@@ -41,6 +41,7 @@ for (int i = 0; i < mötande.Count; i++)
 else if (val == "vänster")
 {
   möta();
+  monster++;
 }
 else if (val == "höger")
 {
