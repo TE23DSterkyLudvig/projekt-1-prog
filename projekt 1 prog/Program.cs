@@ -109,11 +109,12 @@ static int läker(int hälsa, int läka){
 void möta(){
     System.Console.WriteLine($"Du möter en {mötande[mötandenum]} som kommer upp för att attackera.");
     rum();
-    System.Console.WriteLine($"ormen har {monsterHälsa[monster]} i hälsa och gör {monsterSkada} i skada");
+    System.Console.WriteLine($"{mötande[mötandenum]} har {monsterHälsa[monster]} i hälsa och gör {monsterSkada} i skada");
     rum();
     hälsa = monsterStrid(hälsa, monsterSkada, monsterHälsa, attacker, skada, attackVal, attackValNum, monster);
     System.Console.WriteLine($"Du har {hälsa} kvar i hälsa");
     monster++;
+    mötandenum++;
 }
 
 
@@ -151,3 +152,5 @@ static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, L
         }
     }
 }
+
+static void väghändles
