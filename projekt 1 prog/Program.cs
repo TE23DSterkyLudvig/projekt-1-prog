@@ -35,18 +35,50 @@ for (int i = 0; i < mötande.Count; i++)
 {
  if (val == "rakt")
 {
-    
-    hälsa = läker(hälsa, läka);
+  int händelse = väghändelse() ;
+  if (händelse == 1){
+     hälsa = läker(hälsa, läka);
+  }
+   else if(händelse == 2){
+    möta();
+  monster++;
+   }
+   else if(händelse == 3){
+    inget();
+   }
 }
 else if (val == "vänster")
 {
-  möta();
+    int händelse = väghändelse() ;
+  if (händelse == 1){
+     hälsa = läker(hälsa, läka);
+  }
+   else if(händelse == 2){
+    möta();
   monster++;
+   }
+   else if(händelse == 3){
+    inget();
+   }
 }
 else if (val == "höger")
 {
+   int händelse = väghändelse() ;
+  if (händelse == 1){
+     hälsa = läker(hälsa, läka);
+  }
+   else if(händelse == 2){
+    möta();
+  monster++;
+   }
+   else if(händelse == 3){
     inget();
-}   
+   }   
+}  
+System.Console.WriteLine("Du når en korsning där stigen delar sig i tre. Du kan välja att gå vänster, höger eller fortsätta rakt.");
+val = Console.ReadLine();
+
+val = vägVal(val); 
 }
 
 
@@ -123,7 +155,11 @@ void möta(){
 static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, List<string> attacker, List<int> skada, string attackVal, int attackValNum, int monster)
 {
     while (true)
-    {
+    {   
+        for (int i = 0; i < attacker.Count; i++)
+        {
+            System.Console.WriteLine($"Du kan använda {attacker[i]} som gör {skada[i]} i skada");
+        }
         System.Console.WriteLine("Vilken attack vill du använda? Skriv 1 nummer 1 till 4.");
         attackVal = Console.ReadLine();
         int.TryParse(attackVal, out attackValNum);
@@ -136,7 +172,9 @@ static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, L
         monsterHälsa[monster] -= skada[attackValNum];
         System.Console.WriteLine($"Du skadar monstret med {attacker[attackValNum]} och gör {skada[attackValNum]} på monstret");
         Thread.Sleep(800);
+        Math.Max(0,monsterHälsa[monster])
         System.Console.WriteLine($"Monstret har {monsterHälsa[monster]} i hälsa kvar");
+        //System.Console.WriteLine($"Monstret har {monsterHälsa[monster]} i hälsa kvar");
         Thread.Sleep(800);
         System.Console.WriteLine($"Du har {hälsa} i hälsa kvar");
         Thread.Sleep(800);
@@ -153,4 +191,7 @@ static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, L
     }
 }
 
-static void väghändles
+static int väghändelse(){       //gör det random vad som händer vilket håll man går
+     int händelseval = Random.Shared.Next(1,4);
+    return händelseval;
+}
