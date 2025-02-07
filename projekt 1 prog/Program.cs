@@ -207,8 +207,15 @@ static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, L
             System.Console.WriteLine("Skriv en siffra från 1 till 4");
             attackVal = Console.ReadLine();
             attack = int.TryParse(attackVal, out attackValNum);
-
-            if (attack == true)
+            if(attackValNum < 1){
+            System.Console.WriteLine("Gör om.");
+            Thread.Sleep(800);
+            }
+            else if(attackValNum > 4){
+                System.Console.WriteLine("Gör om");
+                Thread.Sleep(800);
+            }
+            else if (attack == true)
             {
                 break;
             }
