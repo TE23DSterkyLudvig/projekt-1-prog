@@ -45,7 +45,7 @@ val = vägVal(val);
     if (hälsa <= 0){
         System.Console.WriteLine("Du är död, tryck enter för att avlsuta.");
         Console.ReadLine(); 
-        Environment.Exit(0) ;
+        break;
          }
   monster++;
   
@@ -62,6 +62,12 @@ else if (val == "vänster")
   }
    else if(händelse == 2){
     möta();
+        möta();
+    if (hälsa <= 0){
+        System.Console.WriteLine("Du är död, tryck enter för att avlsuta.");
+        Console.ReadLine(); 
+        break;
+         }
   monster++;
    }
    else if(händelse == 3){
@@ -76,6 +82,12 @@ else if (val == "höger")
   }
    else if(händelse == 2){
     möta();
+        möta();
+    if (hälsa <= 0){
+        System.Console.WriteLine("Du är död, tryck enter för att avlsuta.");
+        Console.ReadLine(); 
+        break;
+         }
   monster++;
    }
    else if(händelse == 3){
