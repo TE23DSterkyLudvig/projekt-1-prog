@@ -16,27 +16,52 @@ List<string> mötande = ["Giftorm", "Trädmonster", "Sork", "skogstroll"];
 List<int> monsterHälsa = [Random.Shared.Next(80, 95), Random.Shared.Next(80, 95), Random.Shared.Next(80, 95), Random.Shared.Next(80, 95)];     // Hur mycket hälsa ett monster kan ha
 
 
-System.Console.WriteLine("En dag när du är ute och vandrar i skogen så märker du plötsligt att du tappat bort dig i skogen, Du måste ta dig hem.");
+System.Console.WriteLine("En dag när du är ute och vandrar i skogen så märker du plötsligt att du tappat bort dig i skogen, Du måste ta dig hem."); // Startdialog
 rum();
 System.Console.WriteLine($"Du har {hälsa} i hälsa och har tillgång till ett antal attacker.");
 rum();
-for (int i = 0; i < attacker.Count; i++)
+for (int i = 0; i < attacker.Count; i++) // Visar dina attacker och dess skada
 {
     System.Console.WriteLine($"{attacker[i]} gör {skada[i]} i skada");
     rum();
 }
 
+System.Console.WriteLine("Hur många korsningar vill du gå i, du kan välja mellan 1 och 4"); // Låter dig välja mellan antal korsningar från 1 till 4
+string antalKors = Console.ReadLine();
+ bool korsBool = int.TryParse(antalKors, out int antalKorsNum);
+while(true){
+    if (antalKorsNum > 4){
+        System.Console.WriteLine("Skriv in igen");
+       antalKors = Console.ReadLine();
+        int.TryParse(antalKors, out antalKorsNum); 
+    }
+    else if(antalKorsNum < 1){
+         System.Console.WriteLine("Skriv in igen");
+       antalKors = Console.ReadLine();
+        int.TryParse(antalKors, out antalKorsNum); 
+    }
+    else if (korsBool == false){
+         System.Console.WriteLine("Skriv in igen");
+       antalKors = Console.ReadLine();
+        int.TryParse(antalKors, out antalKorsNum); 
+    }
+    else{
+        break;
+    }
+}
 
-for (int i = 0; i < mötande.Count; i++)
+
+
+for (int i = 0; i < antalKorsNum; i++)    // Själva huvudprocessen med vägval.
 {
     System.Console.WriteLine("Du når en korsning där stigen delar sig i tre. Du kan välja att gå vänster, höger eller fortsätta rakt.");
     val = Console.ReadLine();
 
     val = vägVal(val);
 
-    if (val == "rakt")
+    if (val == "rakt")              // Det som händer om man väljer att gå rakt
     {
-        int händelse = väghändelse();
+        int händelse = väghändelse(); // man hämtar ett slumptal som påverkar om det blir händelse 1, 2 eller 3
         if (händelse == 1)
         {
             hälsa = läker(hälsa, läka);
@@ -58,7 +83,7 @@ for (int i = 0; i < mötande.Count; i++)
             inget();
         }
     }
-    else if (val == "vänster")
+    else if (val == "vänster")                      // Det som händer om man väljer att gå vänster
     {
         int händelse = väghändelse();
         if (händelse == 1)
@@ -67,7 +92,6 @@ for (int i = 0; i < mötande.Count; i++)
         }
         else if (händelse == 2)
         {
-            möta();
             möta();
             if (hälsa <= 0)
             {
@@ -82,7 +106,7 @@ for (int i = 0; i < mötande.Count; i++)
             inget();
         }
     }
-    else if (val == "höger")
+    else if (val == "höger")                // Det som händer om man väljer att gå höger
     {
         int händelse = väghändelse();
         if (händelse == 1)
@@ -92,10 +116,9 @@ for (int i = 0; i < mötande.Count; i++)
         else if (händelse == 2)
         {
             möta();
-            möta();
             if (hälsa <= 0)
             {
-                System.Console.WriteLine("Du är död, tryck enter för att avlsuta.");
+                System.Console.WriteLine("Du är död, tryck enter för att fortsätta.");
                 Console.ReadLine();
                 break;
             }
@@ -110,7 +133,13 @@ for (int i = 0; i < mötande.Count; i++)
 rum();
 
 
-System.Console.WriteLine($"Grattis du klarade spelet med {hälsa} kvar i hp");
+if (hälsa <= 0){
+    System.Console.WriteLine("Du förlorade!");
+}
+else if(hälsa > 0){
+    System.Console.WriteLine($"Grattis du klarade spelet med {hälsa} kvar i hp");
+}
+
 
 
 
@@ -193,34 +222,37 @@ static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, L
 {
     while (true)
     {
-        for (int i = 0; i < attacker.Count; i++)
+        for (int i = 0; i < attacker.Count; i++)            // Skriver ut vilka attacker du har
         {
             System.Console.WriteLine($"Du kan använda {attacker[i]} som gör {skada[i]} i skada");
         }
-        System.Console.WriteLine($"Du har {hälsa} i hälsa.");
+        System.Console.WriteLine($"Du har {hälsa} i hälsa.");                   // Dialog innan strid
         System.Console.WriteLine($"Monstret har {monsterHälsa[monster]} i hälsa.");
         System.Console.WriteLine("Vilken attack vill du använda? Skriv 1 nummer 1 till 4.");
         attackVal = Console.ReadLine();
         bool attack = int.TryParse(attackVal, out attackValNum);
-        while (attack == false)
-        {
-            System.Console.WriteLine("Skriv en siffra från 1 till 4");
-            attackVal = Console.ReadLine();
-            attack = int.TryParse(attackVal, out attackValNum);
-            if(attackValNum < 1){
-            System.Console.WriteLine("Gör om.");
-            Thread.Sleep(800);
+
+        while(true){            // Kollar så att att man väljer en attack
+            if(attackValNum > 4){
+                System.Console.WriteLine("Skriv ett nummer mellan 1 och 4");
+                attackVal = Console.ReadLine();
+                  int.TryParse(attackVal, out attackValNum); 
             }
-            else if(attackValNum > 4){
-                System.Console.WriteLine("Gör om");
-                Thread.Sleep(800);
+            else if(attackValNum < 1){
+                 System.Console.WriteLine("Skriv ett nummer mellan 1 och 4");
+                attackVal = Console.ReadLine();
+                  int.TryParse(attackVal, out attackValNum); 
             }
-            else if (attack == true)
-            {
-                break;
+            else if(attack == false){
+                 System.Console.WriteLine("Skriv ett nummer mellan 1 och 4");
+                attackVal = Console.ReadLine();
+                 int.TryParse(attackVal, out attackValNum); 
+            }
+            else{
+                   break;
             }
         }
-        attackValNum--;
+       
 
 
         hälsa -= monsterSkada;                              //Själva attackfasen börjar
@@ -235,7 +267,12 @@ static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, L
         Thread.Sleep(800);
         System.Console.WriteLine($"Du har {hälsa} i hälsa kvar");
         Thread.Sleep(800);
-        System.Console.WriteLine("Tryck enter för nästa runda");
+        if(monsterHälsa[monster] > 0){       // gör så att det bara sägs när monstret lever
+            System.Console.WriteLine("skriv valfritt för nästa runda");
+        }
+        else{
+            System.Console.WriteLine("Skriv valfritt för att återgå till vägen");
+        }
         Console.ReadLine();
         Console.Clear();
         if (monsterHälsa[monster] <= 0)
