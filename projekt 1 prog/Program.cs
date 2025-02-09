@@ -134,7 +134,7 @@ rum();
 
 
 if (hälsa <= 0){
-    System.Console.WriteLine("Du förlorade!");
+    System.Console.WriteLine("Du förlorade! ha");
 }
 else if(hälsa > 0){
     System.Console.WriteLine($"Grattis du klarade spelet med {hälsa} kvar i hp");
