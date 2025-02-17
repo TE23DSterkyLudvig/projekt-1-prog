@@ -63,7 +63,7 @@ for (int i = 0; i < antalKorsNum; i++)    // Själva huvudprocessen med vägval.
 
     val = vägVal(val);
 
-    if (val == "rakt")              // Det som händer om man väljer att gå rakt
+    if (val.ToLower()== "rakt")              // Det som händer om man väljer att gå rakt
     {
         int händelse = väghändelse(); // man hämtar ett slumptal som påverkar om det blir händelse 1, 2 eller 3
         if (händelse == 1)
@@ -73,7 +73,7 @@ for (int i = 0; i < antalKorsNum; i++)    // Själva huvudprocessen med vägval.
         else if (händelse == 2)
         {
             hälsa = möta(mötande, mötandenum, monsterHälsa, monster, monsterSkada, hälsa, attacker, skada, attackVal, attackValNum, attack);
-            hälsa = Math.max(0,hälsa); // Gör så att hälsa inte blir negativt
+            hälsa = Math.Max(0,hälsa); // Gör så att hälsa inte blir negativt
             if (hälsa <= 0) // Kollar ifall man är död
             {
                 System.Console.WriteLine("tryck enter för att fortsätta.");
@@ -88,7 +88,7 @@ for (int i = 0; i < antalKorsNum; i++)    // Själva huvudprocessen med vägval.
             inget();
         }
     }
-    else if (val == "vänster")                      // Det som händer om man väljer att gå vänster
+    else if (val.ToLower() == "vänster")                      // Det som händer om man väljer att gå vänster
     {
         int händelse = väghändelse();
         if (händelse == 1)
@@ -98,7 +98,7 @@ for (int i = 0; i < antalKorsNum; i++)    // Själva huvudprocessen med vägval.
         else if (händelse == 2)
         {
             hälsa = möta(mötande, mötandenum, monsterHälsa, monster, monsterSkada, hälsa, attacker, skada, attackVal, attackValNum, attack);
-            hälsa = Math.max(0,hälsa);      // Gör så att hälsa inte blir negativt
+            hälsa = Math.Max(0,hälsa);      // Gör så att hälsa inte blir negativt
             if (hälsa <= 0)
             {
                 System.Console.WriteLine("tryck enter för att fortsätta.");
@@ -113,7 +113,7 @@ for (int i = 0; i < antalKorsNum; i++)    // Själva huvudprocessen med vägval.
             inget();
         }
     }
-    else if (val == "höger")                // Det som händer om man väljer att gå höger
+    else if (val.ToLower() == "höger")                // Det som händer om man väljer att gå höger
     {
         int händelse = väghändelse();
         if (händelse == 1)
@@ -123,7 +123,7 @@ for (int i = 0; i < antalKorsNum; i++)    // Själva huvudprocessen med vägval.
         else if (händelse == 2)
         {
             hälsa = möta(mötande, mötandenum, monsterHälsa, monster, monsterSkada, hälsa, attacker, skada, attackVal, attackValNum, attack);
-            hälsa = Math.max(0,hälsa); // Gör så att hälsa inte blir negativt
+            hälsa = Math.Max(0,hälsa); // Gör så att hälsa inte blir negativt
             if (hälsa <= 0)
             {
                 System.Console.WriteLine("tryck enter för att fortsätta.");
@@ -152,19 +152,16 @@ else if (hälsa > 0)      // Om man överlever spelet
     System.Console.WriteLine($"Grattis du klarade spelet med {hälsa} kvar i hp");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 Console.ReadLine();
+
+
+
+
+
+
+
+
+
 
 
 
@@ -196,6 +193,8 @@ static string vägVal(string val)                //Väljer vilken väg som man v
         }
     }
 }
+
+
 static void rum()                      // Tidsrum mellan meningar.
 {
     Thread.Sleep(800);
@@ -206,6 +205,7 @@ static void inget()                         //när inget händer i en korsning
 {
     System.Console.WriteLine("Inget händer.");
 }
+
 
 static int läker(int hälsa, int läka)                       //När man läker i en korsning
 {
@@ -222,7 +222,7 @@ static int möta(List<string> mötande, int mötandenum, List<int> monsterHälsa
     rum();
     System.Console.WriteLine($"{mötande[mötandenum]} har {monsterHälsa[monster]} i hälsa och gör {monsterSkada} i skada");
     rum();
-    hälsa = monsterStrid(hälsa, monsterSkada, monsterHälsa, attacker, skada, attackVal, attackValNum, monster, attack);
+    hälsa = MonsterStrid(hälsa, monsterSkada, monsterHälsa, attacker, skada, attackVal, attackValNum, monster, attack);
     hälsa = Math.Max(0, hälsa);
     System.Console.WriteLine($"Du har {hälsa} kvar i hälsa");
     return hälsa;
@@ -231,7 +231,7 @@ static int möta(List<string> mötande, int mötandenum, List<int> monsterHälsa
 
 
 
-static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, List<string> attacker, List<int> skada, string attackVal, int attackValNum, int monster, bool attack) //Själva monsterstriden
+static int MonsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, List<string> attacker, List<int> skada, string attackVal, int attackValNum, int monster, bool attack) //Själva monsterstriden
 {
     while (true)
     {
@@ -282,7 +282,7 @@ static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, L
 
         System.Console.WriteLine($"Monstret har {Math.Max(0, monsterHälsa[monster])} i hälsa kvar");  //så att monstret inte får negativt i hälsa
         rum();
-        System.Console.WriteLine($"Du har {hälsa} i hälsa kvar");
+        System.Console.WriteLine($"Du har {Math.Max(0,hälsa)} i hälsa kvar");
         rum();
 
         if (monsterHälsa[monster] > 0)
@@ -308,6 +308,8 @@ static int monsterStrid(int hälsa, int monsterSkada, List<int> monsterHälsa, L
         }
     }
 }
+
+
 
 static int väghändelse()
 {//gör så att det sker olika händelser för riktningarna varje gång     
